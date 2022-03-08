@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:async';
+
 import 'package:location/location.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,35 +14,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final LatLng _initialcameraposition = const LatLng(20.5937, 78.9629);
+  static const CameraPosition _initialcameraposition = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
   final Location _location = Location();
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+  final Completer<GoogleMapController> _controller = Completer();
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
-    GoogleMapController mapController = controller;
+    _controller.complete(controller);
     final LocationData current = await _location.getLocation();
     _addMarker(LatLng(current.latitude!, current.longitude!));
-    _location.onLocationChanged.listen((l) {
-      mapController.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(target: LatLng(l.latitude!, l.longitude!), zoom: 15),
-        ),
-      );
-    });
   }
 
   void _addMarker(LatLng latLng) {
     var marker = Marker(
-      markerId: const MarkerId('place_name'),
+      markerId: const MarkerId('1'),
       position: LatLng(latLng.latitude, latLng.longitude),
       icon: BitmapDescriptor.defaultMarker,
-      infoWindow: const InfoWindow(
-        title: 'title',
-        snippet: 'address',
+      infoWindow: InfoWindow(
+        title: '${latLng.latitude},${latLng.longitude}',
+        snippet: '${latLng.latitude},${latLng.longitude}',
       ),
     );
     setState(() {
-      markers[const MarkerId('place_name')] = marker;
+      markers[const MarkerId('1')] = marker;
     });
   }
 
@@ -49,8 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       home: Scaffold(
         body: GoogleMap(
-            initialCameraPosition:
-                CameraPosition(target: _initialcameraposition),
+            initialCameraPosition: _initialcameraposition,
             mapType: MapType.normal,
             onMapCreated: _onMapCreated,
             myLocationEnabled: true,
