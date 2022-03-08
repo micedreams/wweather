@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -11,29 +12,50 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late GoogleMapController mapController;
+  final LatLng _initialcameraposition = const LatLng(20.5937, 78.9629);
+  final Location _location = Location();
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  Future<void> _onMapCreated(GoogleMapController controller) async {
+    GoogleMapController mapController = controller;
+    final LocationData current = await _location.getLocation();
+    _addMarker(LatLng(current.latitude!, current.longitude!));
+    _location.onLocationChanged.listen((l) {
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(l.latitude!, l.longitude!), zoom: 15),
+        ),
+      );
+    });
+  }
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  void _addMarker(LatLng latLng) {
+    var marker = Marker(
+      markerId: const MarkerId('place_name'),
+      position: LatLng(latLng.latitude, latLng.longitude),
+      icon: BitmapDescriptor.defaultMarker,
+      infoWindow: const InfoWindow(
+        title: 'title',
+        snippet: 'address',
+      ),
+    );
+    setState(() {
+      markers[const MarkerId('place_name')] = marker;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Maps Sample App'),
-          backgroundColor: Colors.green[700],
-        ),
         body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0,
-          ),
-        ),
+            initialCameraPosition:
+                CameraPosition(target: _initialcameraposition),
+            mapType: MapType.normal,
+            onMapCreated: _onMapCreated,
+            myLocationEnabled: true,
+            markers: Set<Marker>.of(markers.values),
+            onTap: _addMarker),
       ),
     );
   }
