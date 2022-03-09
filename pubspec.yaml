@@ -30,13 +30,18 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  freezed_annotation: ^1.1.0
   google_maps_flutter: ^2.1.2
+  http: ^0.13.4
+  json_serializable: ^6.1.5
   location: ^4.3.0
 
 dev_dependencies:
+  build_runner: null
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+  freezed: ^1.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
