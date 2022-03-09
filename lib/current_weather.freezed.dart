@@ -24,18 +24,16 @@ class _$CurrentWeatherTearOff {
 
   _CurrentWeather call(
       {double? temp,
-      double? feels_like,
-      double? temp_min,
-      double? temp_max,
+      double? feelsLike,
       int? pressure,
-      int? humidity}) {
+      int? humidity,
+      List<dynamic> allTemp = const []}) {
     return _CurrentWeather(
       temp: temp,
-      feels_like: feels_like,
-      temp_min: temp_min,
-      temp_max: temp_max,
+      feelsLike: feelsLike,
       pressure: pressure,
       humidity: humidity,
+      allTemp: allTemp,
     );
   }
 
@@ -50,11 +48,10 @@ const $CurrentWeather = _$CurrentWeatherTearOff();
 /// @nodoc
 mixin _$CurrentWeather {
   double? get temp => throw _privateConstructorUsedError;
-  double? get feels_like => throw _privateConstructorUsedError;
-  double? get temp_min => throw _privateConstructorUsedError;
-  double? get temp_max => throw _privateConstructorUsedError;
+  double? get feelsLike => throw _privateConstructorUsedError;
   int? get pressure => throw _privateConstructorUsedError;
   int? get humidity => throw _privateConstructorUsedError;
+  List<dynamic> get allTemp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,11 +66,10 @@ abstract class $CurrentWeatherCopyWith<$Res> {
       _$CurrentWeatherCopyWithImpl<$Res>;
   $Res call(
       {double? temp,
-      double? feels_like,
-      double? temp_min,
-      double? temp_max,
+      double? feelsLike,
       int? pressure,
-      int? humidity});
+      int? humidity,
+      List<dynamic> allTemp});
 }
 
 /// @nodoc
@@ -88,28 +84,19 @@ class _$CurrentWeatherCopyWithImpl<$Res>
   @override
   $Res call({
     Object? temp = freezed,
-    Object? feels_like = freezed,
-    Object? temp_min = freezed,
-    Object? temp_max = freezed,
+    Object? feelsLike = freezed,
     Object? pressure = freezed,
     Object? humidity = freezed,
+    Object? allTemp = freezed,
   }) {
     return _then(_value.copyWith(
       temp: temp == freezed
           ? _value.temp
           : temp // ignore: cast_nullable_to_non_nullable
               as double?,
-      feels_like: feels_like == freezed
-          ? _value.feels_like
-          : feels_like // ignore: cast_nullable_to_non_nullable
-              as double?,
-      temp_min: temp_min == freezed
-          ? _value.temp_min
-          : temp_min // ignore: cast_nullable_to_non_nullable
-              as double?,
-      temp_max: temp_max == freezed
-          ? _value.temp_max
-          : temp_max // ignore: cast_nullable_to_non_nullable
+      feelsLike: feelsLike == freezed
+          ? _value.feelsLike
+          : feelsLike // ignore: cast_nullable_to_non_nullable
               as double?,
       pressure: pressure == freezed
           ? _value.pressure
@@ -119,6 +106,10 @@ class _$CurrentWeatherCopyWithImpl<$Res>
           ? _value.humidity
           : humidity // ignore: cast_nullable_to_non_nullable
               as int?,
+      allTemp: allTemp == freezed
+          ? _value.allTemp
+          : allTemp // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ));
   }
 }
@@ -132,11 +123,10 @@ abstract class _$CurrentWeatherCopyWith<$Res>
   @override
   $Res call(
       {double? temp,
-      double? feels_like,
-      double? temp_min,
-      double? temp_max,
+      double? feelsLike,
       int? pressure,
-      int? humidity});
+      int? humidity,
+      List<dynamic> allTemp});
 }
 
 /// @nodoc
@@ -153,28 +143,19 @@ class __$CurrentWeatherCopyWithImpl<$Res>
   @override
   $Res call({
     Object? temp = freezed,
-    Object? feels_like = freezed,
-    Object? temp_min = freezed,
-    Object? temp_max = freezed,
+    Object? feelsLike = freezed,
     Object? pressure = freezed,
     Object? humidity = freezed,
+    Object? allTemp = freezed,
   }) {
     return _then(_CurrentWeather(
       temp: temp == freezed
           ? _value.temp
           : temp // ignore: cast_nullable_to_non_nullable
               as double?,
-      feels_like: feels_like == freezed
-          ? _value.feels_like
-          : feels_like // ignore: cast_nullable_to_non_nullable
-              as double?,
-      temp_min: temp_min == freezed
-          ? _value.temp_min
-          : temp_min // ignore: cast_nullable_to_non_nullable
-              as double?,
-      temp_max: temp_max == freezed
-          ? _value.temp_max
-          : temp_max // ignore: cast_nullable_to_non_nullable
+      feelsLike: feelsLike == freezed
+          ? _value.feelsLike
+          : feelsLike // ignore: cast_nullable_to_non_nullable
               as double?,
       pressure: pressure == freezed
           ? _value.pressure
@@ -184,6 +165,10 @@ class __$CurrentWeatherCopyWithImpl<$Res>
           ? _value.humidity
           : humidity // ignore: cast_nullable_to_non_nullable
               as int?,
+      allTemp: allTemp == freezed
+          ? _value.allTemp
+          : allTemp // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
     ));
   }
 }
@@ -193,11 +178,10 @@ class __$CurrentWeatherCopyWithImpl<$Res>
 class _$_CurrentWeather extends _CurrentWeather with DiagnosticableTreeMixin {
   const _$_CurrentWeather(
       {this.temp,
-      this.feels_like,
-      this.temp_min,
-      this.temp_max,
+      this.feelsLike,
       this.pressure,
-      this.humidity})
+      this.humidity,
+      this.allTemp = const []})
       : super._();
 
   factory _$_CurrentWeather.fromJson(Map<String, dynamic> json) =>
@@ -206,19 +190,18 @@ class _$_CurrentWeather extends _CurrentWeather with DiagnosticableTreeMixin {
   @override
   final double? temp;
   @override
-  final double? feels_like;
-  @override
-  final double? temp_min;
-  @override
-  final double? temp_max;
+  final double? feelsLike;
   @override
   final int? pressure;
   @override
   final int? humidity;
+  @JsonKey()
+  @override
+  final List<dynamic> allTemp;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CurrentWeather(temp: $temp, feels_like: $feels_like, temp_min: $temp_min, temp_max: $temp_max, pressure: $pressure, humidity: $humidity)';
+    return 'CurrentWeather(temp: $temp, feelsLike: $feelsLike, pressure: $pressure, humidity: $humidity, allTemp: $allTemp)';
   }
 
   @override
@@ -227,11 +210,10 @@ class _$_CurrentWeather extends _CurrentWeather with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'CurrentWeather'))
       ..add(DiagnosticsProperty('temp', temp))
-      ..add(DiagnosticsProperty('feels_like', feels_like))
-      ..add(DiagnosticsProperty('temp_min', temp_min))
-      ..add(DiagnosticsProperty('temp_max', temp_max))
+      ..add(DiagnosticsProperty('feelsLike', feelsLike))
       ..add(DiagnosticsProperty('pressure', pressure))
-      ..add(DiagnosticsProperty('humidity', humidity));
+      ..add(DiagnosticsProperty('humidity', humidity))
+      ..add(DiagnosticsProperty('allTemp', allTemp));
   }
 
   @override
@@ -240,23 +222,20 @@ class _$_CurrentWeather extends _CurrentWeather with DiagnosticableTreeMixin {
         (other.runtimeType == runtimeType &&
             other is _CurrentWeather &&
             const DeepCollectionEquality().equals(other.temp, temp) &&
-            const DeepCollectionEquality()
-                .equals(other.feels_like, feels_like) &&
-            const DeepCollectionEquality().equals(other.temp_min, temp_min) &&
-            const DeepCollectionEquality().equals(other.temp_max, temp_max) &&
+            const DeepCollectionEquality().equals(other.feelsLike, feelsLike) &&
             const DeepCollectionEquality().equals(other.pressure, pressure) &&
-            const DeepCollectionEquality().equals(other.humidity, humidity));
+            const DeepCollectionEquality().equals(other.humidity, humidity) &&
+            const DeepCollectionEquality().equals(other.allTemp, allTemp));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(temp),
-      const DeepCollectionEquality().hash(feels_like),
-      const DeepCollectionEquality().hash(temp_min),
-      const DeepCollectionEquality().hash(temp_max),
+      const DeepCollectionEquality().hash(feelsLike),
       const DeepCollectionEquality().hash(pressure),
-      const DeepCollectionEquality().hash(humidity));
+      const DeepCollectionEquality().hash(humidity),
+      const DeepCollectionEquality().hash(allTemp));
 
   @JsonKey(ignore: true)
   @override
@@ -272,11 +251,10 @@ class _$_CurrentWeather extends _CurrentWeather with DiagnosticableTreeMixin {
 abstract class _CurrentWeather extends CurrentWeather {
   const factory _CurrentWeather(
       {double? temp,
-      double? feels_like,
-      double? temp_min,
-      double? temp_max,
+      double? feelsLike,
       int? pressure,
-      int? humidity}) = _$_CurrentWeather;
+      int? humidity,
+      List<dynamic> allTemp}) = _$_CurrentWeather;
   const _CurrentWeather._() : super._();
 
   factory _CurrentWeather.fromJson(Map<String, dynamic> json) =
@@ -285,15 +263,13 @@ abstract class _CurrentWeather extends CurrentWeather {
   @override
   double? get temp;
   @override
-  double? get feels_like;
-  @override
-  double? get temp_min;
-  @override
-  double? get temp_max;
+  double? get feelsLike;
   @override
   int? get pressure;
   @override
   int? get humidity;
+  @override
+  List<dynamic> get allTemp;
   @override
   @JsonKey(ignore: true)
   _$CurrentWeatherCopyWith<_CurrentWeather> get copyWith =>

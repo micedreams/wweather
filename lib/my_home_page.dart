@@ -25,12 +25,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   final Completer<GoogleMapController> _controller = Completer();
   CurrentWeather currentWeather = const CurrentWeather(
-      temp: 0.0,
-      feels_like: 0.0,
-      temp_min: 0.0,
-      temp_max: 0.0,
-      pressure: 0,
-      humidity: 0);
+    temp: 0.0,
+    feelsLike: 0.0,
+  );
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     _controller.complete(controller);
